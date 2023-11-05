@@ -1,0 +1,9 @@
+{% include "navbar.html" %}
+<hr>
+<h1>FORMULAIRE DE DECHIFFREMENT</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="code">Saisir le code provenant du QR :</label>
+    <input type="text" name="code" id="code"><br/>
+    <input type="submit" value="Scanner">
+</form>

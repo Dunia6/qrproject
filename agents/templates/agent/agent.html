@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de l'agent</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <hr>
+    <h1>Informations de l'agent</h1>
+    <form action="" method="post">{% csrf_token %}<input type="submit" value="Générer le code QR"></form>
+    <hr>
+    <img src="{{ agent.thumbnail.url }}" alt="profile_agent" width="100">
+    <h3>Nom : {{ agent.name }}</h3>
+    <h3>Post-nom : {{ agent.firstname }}</h3>
+    <h3>Prénom : {{ agent.lastname }}</h3>
+    <h3>Adresse : {{ agent.adress }}</h3>
+    <h3>Téléphone : {{ agent.phone }}</h3>
+</body>
+</html>
