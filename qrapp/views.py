@@ -1,11 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 import qrcode
-import cv2
-import os
-from pyzbar.pyzbar import decode
-from django.core.files.storage import FileSystemStorage
-from django.conf import settings
+
 
 from agents.utils import chiffrement, dechiffrement
 from agents.models import Agent
@@ -50,16 +46,22 @@ def generate_qr(request, id_agent):
 
 
 def dechiffrer(request):
+    """ Dechiffrer le code provenant du QR """
+    # Recuperer tous les agent
     agents = Agent.objects.all()
+
     if request.method == 'POST':
+        """ Verifier si la methode est POST """
+
+        # Recuperer la donnee du formulaire
         code  = request.POST.get('code')
 
-        print(f"code : {code}")
-        code = dechiffrement(code)
-        print(f"code : {code}")
+        # Dechiffrer le code
+        decode = dechiffrement(code)
 
+        # Rechercher l'agent
         for agent in agents:
-            if agent.name + ' ' + agent.firstname == code:
+            if agent.name + ' ' + agent.firstname == decode:
                 return redirect('agent', id=agent.id)
 
     return render(request, 'qr_generator/dechiffre.html')
